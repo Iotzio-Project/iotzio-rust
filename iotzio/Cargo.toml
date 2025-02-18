@@ -1,0 +1,60 @@
+[package]
+name = "iotzio"
+version = "0.1.0"
+edition = "2021"
+publish = false
+
+
+[dependencies]
+log = "0.4"
+cfg-if = "1.0"
+static_assertions = { version = "1.1", optional = true }
+derive_more = { version = "2.0", default-features = false, features = ["display"] }
+serde = { version = "1.0", default-features = false, features = ["derive"] }
+heapless = { version = "0.8", default-features = false, features = ["serde"] }
+thiserror-no-std = { version = "2.0", default-features = false }
+postcard = { version = "1.1", default-features = false, features = ["heapless-cas"] }
+defmt = { version = "0.3", optional = true }
+hidparser = { version = "1.0", optional = true }
+async-std = { version = "1.13", optional = true }
+async-oneshot = { version = "0.5", optional = true }
+futures-concurrency = { version = "7.6", optional = true }
+uniffi = { version = "0.28", optional = true }
+embedded-hal = { version = "1.0", optional = true }
+embedded-hal-async = { version = "1.0.0", optional = true }
+
+
+[target."cfg(any(target_os = \"windows\", target_os = \"linux\", target_os = \"macos\"))".dependencies]
+async-hid = { git = "https://github.com/Tederean/async-hid.git", default-features = false, features = ["async-io", "win32"] }
+futures-lite = "2.6"
+
+
+[target."cfg(target_arch = \"wasm32\")".dependencies]
+wasm-bindgen = "0.2"
+wasm-bindgen-futures = "0.4"
+serde-wasm-bindgen = "0.6"
+web-sys = { version = "0.3", features = ["Window", "Navigator", "HidInputReportEvent", "Hid", "HidDeviceRequestOptions", "HidDevice"] }
+js-sys = "0.3"
+
+
+[target."cfg(target_os = \"android\")".dependencies]
+jni = "0.21"
+jni-min-helper = "0.3"
+ndk-context = "0.1"
+
+
+[build-dependencies]
+uniffi = { version = "0.28", features = ["build"], optional = true }
+
+[lib]
+crate-type = ["lib", "cdylib"]
+name = "iotzio"
+
+
+[features]
+default = ["_std"]
+embedded-hal = ["_std", "dep:embedded-hal", "dep:embedded-hal-async"]
+_std = ["dep:static_assertions", "dep:hidparser", "dep:async-oneshot", "dep:async-std", "dep:futures-concurrency", "derive_more/std", "serde/std", "thiserror-no-std/std", "postcard/use-std"]
+_defmt = ["dep:defmt", "heapless/defmt-03", "postcard/defmt"]
+_uniffi-blocking = ["_std", "dep:uniffi"]
+_uniffi-async = ["_std", "dep:uniffi"]
