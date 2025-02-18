@@ -1,13 +1,13 @@
 # Iotzio
 
-The `iotzio` crate allows interaction with Iotzio devices. An Iotzio device is a microcontroller that enables the host computer to directly control peripherals such as GPIO, I2C, SPI, Onewire, and many other bus protocols and devices that are not typically available to an application developer on a standard computer. This Rust library is the reference implementation. There are bindings available for many other programming languages. No extra drivers required!
+The Iotzio API allows interaction with Iotzio devices. An Iotzio device is a microcontroller that enables the host computer to directly control peripherals such as GPIO, I2C, SPI, Onewire, and many other bus protocols and devices that are not typically available to an application developer on a standard computer. This API is also available to many other programming languages. No extra drivers required!
 
 ## Features
 
 - Control GPIOs, utilize PWM, use I2C, SPI, Onewire and other bus protocols
 - Direct interaction for various peripherals
-- Reference implementation in idiomatic Rust - blazingly fast and memory safe
-- Bindings available for multiple programming languages
+- Available for multiple programming languages
+- The Iotzio API in its core is using pure idiomatic Rust - blazingly fast and memory safe
 
 ## Compatibility
 
@@ -27,7 +27,7 @@ Add this to your `Cargo.toml`:
 iotzio = "0.1.0"
 ```
 
-This crate provides integration of the embedded-hal(-async) traits using feature `embedded-hal`.
+Hint: Integration of the embedded-hal(-async) traits is available using crate feature `embedded-hal`
 
 ## Usage
 Here is a simple example of how to use the iotzio crate:
