@@ -16,7 +16,11 @@ use self::context::*;
 use self::permissions::*;
 
 #[no_mangle]
-pub extern "system" fn Java_com_iotzio_api_AndroidHelper_onActivityCreateNative(mut env: JNIEnv, _: JClass, context: JObject) -> jboolean {
+pub extern "system" fn Java_com_iotzio_api_AndroidHelper_onActivityCreateNative(
+    mut env: JNIEnv,
+    _: JClass,
+    context: JObject,
+) -> jboolean {
     match initialize_android_context(&mut env, context) {
         Ok(_) => JNI_TRUE,
         Err(_) => JNI_FALSE,
