@@ -1,5 +1,3 @@
-#![forbid(unsafe_code)]
-
 use iotzio::IotzioManager;
 use log::{info, warn};
 
