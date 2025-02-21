@@ -11,10 +11,14 @@ pub async fn main() {
 async fn example() -> anyhow::Result<()> {
     let iotzio_infos = IotzioManager::new().list_connected_boards_async().await?;
 
-    for iotzio_info in iotzio_infos {
-        let iotzio = iotzio_info.open_async().await?;
+    if iotzio_infos.is_empty() {
+        println!("No Iotzio found!");
+    } else {
+        for iotzio_info in iotzio_infos {
+            let iotzio = iotzio_info.open_async().await?;
 
-        info!("Found Iotzio {0} with serial number {1}!", iotzio.version(), iotzio.serial_number());
+            info!("Found Iotzio {0} with serial number {1}!", iotzio.version(), iotzio.serial_number());
+        }
     }
 
     Ok(())
