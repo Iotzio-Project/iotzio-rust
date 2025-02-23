@@ -2,6 +2,14 @@
 name = "iotzio"
 version = "0.1.0"
 edition = "2021"
+authors = ["Florian Porsch"]
+license = "MIT"
+readme = "readme.md"
+keywords = ["iotzio", "usb", "hid", "embedded_hal"]
+categories = ["embedded", "hardware-support"]
+repository = "https://github.com/Iotzio-Project/iotzio-rust"
+description = "The Iotzio API allows interaction with Iotzio devices. An Iotzio device is a USB connected microchip that enables the host computer to directly control peripherals such as GPIOs, utilize PWM, use I2C, SPI, Onewire and other bus protocols and devices that are not typically available to an application developer on a standard computer."
+exclude = ["uniffi.toml"]
 publish = false
 
 
@@ -43,14 +51,6 @@ jni-min-helper = "0.3"
 ndk-context = "0.1"
 
 
-[build-dependencies]
-uniffi = { version = "0.28", features = ["build"], optional = true }
-
-[lib]
-crate-type = ["lib", "cdylib"]
-name = "iotzio"
-
-
 [features]
 default = ["_std"]
 embedded-hal = ["_std", "dep:embedded-hal", "dep:embedded-hal-async"]
@@ -58,3 +58,11 @@ _std = ["dep:static_assertions", "dep:hidparser", "dep:async-oneshot", "dep:asyn
 _defmt = ["dep:defmt", "heapless/defmt-03", "postcard/defmt"]
 _uniffi-blocking = ["_std", "dep:uniffi"]
 _uniffi-async = ["_std", "dep:uniffi"]
+
+
+#[build-dependencies]
+#uniffi = { version = "0.28", features = ["build"], optional = true }
+
+#[lib]
+#crate-type = ["lib", "cdylib"]
+#name = "iotzio"
