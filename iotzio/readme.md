@@ -20,7 +20,7 @@ The Iotzio board is compatible with the following platforms:
 
 ## Installation
 
-Add `iotzio` as dependency to your `Cargo.toml`. Integration of the embedded-hal(-async) traits is available using crate feature `embedded-hal`
+Iotzio is available on [crates.io](https://crates.io/crates/iotzio). Just add `iotzio` as dependency to your `Cargo.toml`. Integration of the embedded-hal(-async) traits is available using crate feature `embedded-hal`.
 
 ## Usage
 Here is a simple example of how to use the iotzio crate:
