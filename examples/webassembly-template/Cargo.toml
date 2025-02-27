@@ -10,7 +10,7 @@ crate-type = ["cdylib", "rlib"]
 
 
 [dependencies]
-iotzio = { path = "../../iotzio" }
+iotzio = "0.1.0"
 log = "0.4"
 anyhow = "1.0"
 async-std = "1.13"
