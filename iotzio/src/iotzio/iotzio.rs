@@ -5,14 +5,14 @@ use crate::socket::Socket;
 use std::ops::Deref;
 use std::sync::Arc;
 
-#[cfg_attr(any(feature = "_uniffi-blocking", feature = "_uniffi-async"), derive(uniffi::Object))]
+#[cfg_attr(any(feature = "_ffi-blocking", feature = "_ffi-async"), derive(uniffi::Object))]
 #[derive(Debug)]
 pub struct Iotzio {
     pub(crate) socket: Arc<Socket>,
     pub(crate) board_info: BoardInfo,
 }
 
-#[cfg_attr(any(feature = "_uniffi-blocking", feature = "_uniffi-async"), uniffi::export)]
+#[cfg_attr(any(feature = "_ffi-blocking", feature = "_ffi-async"), uniffi::export)]
 impl Iotzio {
     #[inline]
     pub fn serial_number(&self) -> String {
@@ -36,7 +36,7 @@ impl Iotzio {
 }
 
 #[cfg(not(target_family = "wasm"))]
-#[cfg_attr(feature = "_uniffi-blocking", uniffi::export)]
+#[cfg_attr(feature = "_ffi-blocking", uniffi::export)]
 impl Iotzio {
     #[inline]
     pub fn setup_input_pin(
@@ -79,7 +79,7 @@ impl Iotzio {
     }
 }
 
-#[cfg_attr(feature = "_uniffi-async", uniffi::export)]
+#[cfg_attr(feature = "_ffi-async", uniffi::export)]
 impl Iotzio {
     #[inline]
     pub async fn setup_input_pin_async(

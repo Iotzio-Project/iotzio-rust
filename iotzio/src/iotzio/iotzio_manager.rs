@@ -3,16 +3,16 @@ use crate::iotzio::iotzio_service;
 use crate::InitializationError;
 use std::marker::PhantomData;
 
-#[cfg_attr(any(feature = "_uniffi-blocking", feature = "_uniffi-async"), derive(uniffi::Object))]
+#[cfg_attr(any(feature = "_ffi-blocking", feature = "_ffi-async"), derive(uniffi::Object))]
 #[derive(Debug, Default)]
 pub struct IotzioManager {
     phantom_data: PhantomData<()>,
 }
 
-#[cfg_attr(any(feature = "_uniffi-blocking", feature = "_uniffi-async"), uniffi::export)]
+#[cfg_attr(any(feature = "_ffi-blocking", feature = "_ffi-async"), uniffi::export)]
 impl IotzioManager {
     #[inline]
-    #[cfg_attr(any(feature = "_uniffi-blocking", feature = "_uniffi-async"), uniffi::constructor)]
+    #[cfg_attr(any(feature = "_ffi-blocking", feature = "_ffi-async"), uniffi::constructor)]
     pub fn new() -> IotzioManager {
         IotzioManager {
             phantom_data: PhantomData,
@@ -20,7 +20,7 @@ impl IotzioManager {
     }
 }
 
-#[cfg(all(not(target_family = "wasm"), not(feature = "_uniffi-blocking")))]
+#[cfg(all(not(target_family = "wasm"), not(feature = "_ffi-blocking")))]
 impl IotzioManager {
     #[inline]
     pub fn list_connected_boards(&self) -> Result<Vec<IotzioInfo>, InitializationError> {
@@ -28,7 +28,7 @@ impl IotzioManager {
     }
 }
 
-#[cfg(all(not(target_family = "wasm"), feature = "_uniffi-blocking"))]
+#[cfg(all(not(target_family = "wasm"), feature = "_ffi-blocking"))]
 #[uniffi::export]
 impl IotzioManager {
     #[inline]
@@ -38,7 +38,7 @@ impl IotzioManager {
     }
 }
 
-#[cfg(not(feature = "_uniffi-async"))]
+#[cfg(not(feature = "_ffi-async"))]
 impl IotzioManager {
     #[inline]
     pub async fn list_connected_boards_async(&self) -> Result<Vec<IotzioInfo>, InitializationError> {
@@ -46,7 +46,7 @@ impl IotzioManager {
     }
 }
 
-#[cfg(feature = "_uniffi-async")]
+#[cfg(feature = "_ffi-async")]
 #[uniffi::export]
 impl IotzioManager {
     #[inline]

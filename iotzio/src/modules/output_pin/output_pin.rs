@@ -4,7 +4,7 @@ use crate::socket::Socket;
 use async_std::task::block_on;
 use std::sync::{Arc, Mutex};
 
-#[cfg_attr(any(feature = "_uniffi-blocking", feature = "_uniffi-async"), derive(uniffi::Object))]
+#[cfg_attr(any(feature = "_ffi-blocking", feature = "_ffi-async"), derive(uniffi::Object))]
 #[derive(Debug)]
 pub struct OutputPin {
     pub(crate) socket: Arc<Socket>,
@@ -27,7 +27,7 @@ impl OutputPin {
     }
 }
 
-#[cfg_attr(any(feature = "_uniffi-blocking", feature = "_uniffi-async"), uniffi::export)]
+#[cfg_attr(any(feature = "_ffi-blocking", feature = "_ffi-async"), uniffi::export)]
 impl OutputPin {
     /// Returns used pin.
     #[inline]
@@ -54,7 +54,7 @@ impl OutputPin {
     }
 }
 
-#[cfg_attr(feature = "_uniffi-async", uniffi::export)]
+#[cfg_attr(feature = "_ffi-async", uniffi::export)]
 impl OutputPin {
     /// Sets current pin level.
     #[inline]
@@ -64,7 +64,7 @@ impl OutputPin {
 }
 
 #[cfg(not(target_family = "wasm"))]
-#[cfg_attr(feature = "_uniffi-blocking", uniffi::export)]
+#[cfg_attr(feature = "_ffi-blocking", uniffi::export)]
 impl OutputPin {
     /// Sets current pin level.
     #[inline]

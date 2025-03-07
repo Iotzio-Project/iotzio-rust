@@ -5,7 +5,7 @@ use async_std::sync::Mutex;
 use async_std::task::block_on;
 use std::sync::Arc;
 
-#[cfg_attr(any(feature = "_uniffi-blocking", feature = "_uniffi-async"), derive(uniffi::Object))]
+#[cfg_attr(any(feature = "_ffi-blocking", feature = "_ffi-async"), derive(uniffi::Object))]
 #[derive(Debug)]
 pub struct I2cBus {
     pub(crate) socket: Arc<Socket>,
@@ -20,7 +20,7 @@ impl I2cBus {
     }
 }
 
-#[cfg(all(not(target_family = "wasm"), not(feature = "_uniffi-blocking")))]
+#[cfg(all(not(target_family = "wasm"), not(feature = "_ffi-blocking")))]
 impl I2cBus {
     /// Read from address into buffer.
     #[inline]
@@ -60,7 +60,7 @@ impl I2cBus {
     }
 }
 
-#[cfg(all(not(target_family = "wasm"), feature = "_uniffi-blocking"))]
+#[cfg(all(not(target_family = "wasm"), feature = "_ffi-blocking"))]
 #[uniffi::export]
 impl I2cBus {
     /// Read from address into buffer. Returns buffer.
@@ -103,7 +103,7 @@ impl I2cBus {
     }
 }
 
-#[cfg(not(feature = "_uniffi-async"))]
+#[cfg(not(feature = "_ffi-async"))]
 impl I2cBus {
     /// Read from address into buffer.
     #[inline]
@@ -124,7 +124,7 @@ impl I2cBus {
     }
 }
 
-#[cfg(feature = "_uniffi-async")]
+#[cfg(feature = "_ffi-async")]
 #[uniffi::export]
 impl I2cBus {
     /// Read from address into buffer.

@@ -2,7 +2,7 @@ use crate::communication::FatalError;
 use thiserror_no_std::Error;
 
 #[non_exhaustive]
-#[cfg_attr(any(feature = "_uniffi-blocking", feature = "_uniffi-async"), derive(uniffi::Error))]
+#[cfg_attr(any(feature = "_ffi-blocking", feature = "_ffi-async"), derive(uniffi::Error))]
 #[derive(Error, Debug)]
 pub enum InitializationError {
     #[error("Iotzio board is already opened.")]

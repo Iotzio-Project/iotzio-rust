@@ -3,7 +3,7 @@ use crate::communication::Version;
 use crate::iotzio::iotzio_service;
 use crate::{InitializationError, Iotzio};
 
-#[cfg_attr(any(feature = "_uniffi-blocking", feature = "_uniffi-async"), derive(uniffi::Object))]
+#[cfg_attr(any(feature = "_ffi-blocking", feature = "_ffi-async"), derive(uniffi::Object))]
 #[derive(Debug)]
 pub struct IotzioInfo {
     pub(crate) device_info: Box<DeviceInfo>,
@@ -12,7 +12,7 @@ pub struct IotzioInfo {
     pub(crate) runtime_identifier: u64,
 }
 
-#[cfg_attr(any(feature = "_uniffi-blocking", feature = "_uniffi-async"), uniffi::export)]
+#[cfg_attr(any(feature = "_ffi-blocking", feature = "_ffi-async"), uniffi::export)]
 impl IotzioInfo {
     #[inline]
     pub fn serial_number(&self) -> Option<String> {
@@ -31,7 +31,7 @@ impl IotzioInfo {
 }
 
 #[cfg(not(target_family = "wasm"))]
-#[cfg_attr(feature = "_uniffi-blocking", uniffi::export)]
+#[cfg_attr(feature = "_ffi-blocking", uniffi::export)]
 impl IotzioInfo {
     #[inline]
     pub fn open(&self) -> Result<Iotzio, InitializationError> {
@@ -39,7 +39,7 @@ impl IotzioInfo {
     }
 }
 
-#[cfg_attr(feature = "_uniffi-async", uniffi::export)]
+#[cfg_attr(feature = "_ffi-async", uniffi::export)]
 impl IotzioInfo {
     #[inline]
     pub async fn open_async(&self) -> Result<Iotzio, InitializationError> {
