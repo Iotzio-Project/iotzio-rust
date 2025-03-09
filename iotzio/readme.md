@@ -12,15 +12,15 @@ The Iotzio API allows interaction with Iotzio devices. An Iotzio device is a USB
 ## Compatibility
 
 The Iotzio board is compatible with the following platforms:
-- Windows
-- Linux
-- macOS
-- Android
-- WebAssembly
+- Windows (10, 11)
+- Linux (Kernel >= 3.0)
+- macOS (>= Catalina 10.15)
+- Android (Version >= 8.0 / API Level >= 26)
+- WebAssembly (WebHID support required)
 
 ## Installation
 
-Iotzio is available on [crates.io](https://crates.io/crates/iotzio). Just add `iotzio` as dependency to your `Cargo.toml`. Integration of the embedded-hal(-async) traits is available using crate feature `embedded-hal`.
+Iotzio is available on [crates.io](https://crates.io/crates/iotzio). Just add `iotzio` as dependency to your `Cargo.toml`. Integration of the embedded-hal(-async) traits is available using crate feature `embedded-hal`. Rust Edition `2021` and `2024` is supported.
 
 ## Usage
 Here is a simple example of how to use the iotzio crate:
