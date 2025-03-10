@@ -2,7 +2,7 @@ use derive_more::Display;
 use serde::{Deserialize, Serialize};
 
 cfg_if::cfg_if! {
-    if #[cfg(feature = "_std")] {
+    if #[cfg(feature = "_host")] {
         use std::ops::Not;
     }
     else {

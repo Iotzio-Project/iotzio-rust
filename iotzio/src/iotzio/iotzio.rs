@@ -5,6 +5,7 @@ use crate::socket::Socket;
 use std::ops::Deref;
 use std::sync::Arc;
 
+/// The representation of an opened Iotzio device.
 #[cfg_attr(any(feature = "_ffi-blocking", feature = "_ffi-async"), derive(uniffi::Object))]
 #[derive(Debug)]
 pub struct Iotzio {
@@ -14,21 +15,25 @@ pub struct Iotzio {
 
 #[cfg_attr(any(feature = "_ffi-blocking", feature = "_ffi-async"), uniffi::export)]
 impl Iotzio {
+    /// The persistent and unique serial number of the Iotzio device.
     #[inline]
     pub fn serial_number(&self) -> String {
         self.board_info.serial_number.clone()
     }
 
+    /// The semantic version of the Iotzio device.
     #[inline]
     pub fn version(&self) -> Version {
         self.board_info.version
     }
 
+    /// The protocol version of the iotzio device. This may increase during a major version update. Library and device must match protocol version.
     #[inline]
     pub fn protocol_version(&self) -> u16 {
         self.board_info.protocol_version
     }
 
+    /// The runtime identifier of the Iotzio device. As long as the device remains connected, the runtime identifier stays consistent. However, it may potentially change after the physical USB connection is reestablished.
     #[inline]
     pub fn runtime_identifier(&self) -> u64 {
         self.socket.runtime_identifier.deref().clone()
@@ -38,6 +43,7 @@ impl Iotzio {
 #[cfg(not(target_family = "wasm"))]
 #[cfg_attr(feature = "_ffi-blocking", uniffi::export)]
 impl Iotzio {
+    /// Set up a new input pin with the given pull setting.
     #[inline]
     pub fn setup_input_pin(
         &self,

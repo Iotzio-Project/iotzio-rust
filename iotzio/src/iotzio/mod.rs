@@ -1,7 +1,7 @@
 #![forbid(unsafe_code)]
 
 cfg_if::cfg_if! {
-    if #[cfg(feature = "_std")] {
+    if #[cfg(feature = "_host")] {
         pub(crate) mod iotzio_service;
 
         mod initialization_error;
@@ -42,7 +42,7 @@ cfg_if::cfg_if! {
 }
 
 cfg_if::cfg_if! {
-    if #[cfg(all(feature = "_std", feature = "embedded-hal"))] {
+    if #[cfg(all(feature = "_host", feature = "embedded-hal"))] {
         mod delay;
         pub use self::delay::*;
     }

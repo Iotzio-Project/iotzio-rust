@@ -6,7 +6,7 @@ pub use self::input_pin_module_error::*;
 pub use self::interrupt_trigger::*;
 
 cfg_if::cfg_if! {
-    if #[cfg(feature = "_std")] {
+    if #[cfg(feature = "_host")] {
         mod service;
         mod input_pin;
 

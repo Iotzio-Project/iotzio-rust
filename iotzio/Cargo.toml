@@ -52,14 +52,14 @@ ndk-context = "0.1"
 
 
 [features]
-default = ["_std"]
-embedded-hal = ["_std", "dep:embedded-hal", "dep:embedded-hal-async"]
-_std = ["dep:static_assertions", "dep:hidparser", "dep:async-oneshot", "dep:async-std", "dep:futures-concurrency", "derive_more/std", "serde/std", "thiserror-no-std/std", "postcard/use-std"]
+default = ["_host"]
+embedded-hal = ["_host", "dep:embedded-hal", "dep:embedded-hal-async"]
+_host = ["dep:static_assertions", "dep:hidparser", "dep:async-oneshot", "dep:async-std", "dep:futures-concurrency", "derive_more/std", "serde/std", "thiserror-no-std/std", "postcard/use-std"]
 _defmt = ["dep:defmt", "heapless/defmt-03", "postcard/defmt"]
-_ffi-uniffi = ["_std", "dep:uniffi"]
-_ffi-wasm-bindgen = ["_std"]
-_ffi-blocking = ["_std"]
-_ffi-async = ["_std"]
+_ffi-uniffi = ["_host", "dep:uniffi"]
+_ffi-wasm-bindgen = ["_host"]
+_ffi-blocking = ["_host"]
+_ffi-async = ["_host"]
 
 
 #[build-dependencies]

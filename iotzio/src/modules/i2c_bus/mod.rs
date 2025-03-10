@@ -13,7 +13,7 @@ pub use self::i2c_bus_module_error::*;
 pub use self::i2c_config::*;
 
 cfg_if::cfg_if! {
-    if #[cfg(feature = "_std")] {
+    if #[cfg(feature = "_host")] {
         mod service;
         mod i2c_bus;
 

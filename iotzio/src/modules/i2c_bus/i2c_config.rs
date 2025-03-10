@@ -2,7 +2,7 @@ use crate::modules::i2c_bus::{I2c0SclPin, I2c0SdaPin, I2c1SclPin, I2c1SdaPin};
 use serde::{Deserialize, Serialize};
 
 cfg_if::cfg_if! {
-    if #[cfg(feature = "_std")] {
+    if #[cfg(feature = "_host")] {
         use std::fmt;
     }
     else {

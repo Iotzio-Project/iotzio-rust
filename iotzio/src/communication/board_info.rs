@@ -2,7 +2,7 @@ use crate::communication::Version;
 use serde::{Deserialize, Serialize};
 
 cfg_if::cfg_if! {
-    if #[cfg(feature = "_std")] {
+    if #[cfg(feature = "_host")] {
         use std::fmt;
 
         pub type SerialNumberString = String;
@@ -14,7 +14,6 @@ cfg_if::cfg_if! {
     }
 }
 
-#[cfg_attr(any(feature = "_ffi-blocking", feature = "_ffi-async"), derive(uniffi::Record))]
 #[cfg_attr(feature = "_defmt", derive(defmt::Format))]
 #[derive(Serialize, Deserialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
 pub struct BoardInfo {

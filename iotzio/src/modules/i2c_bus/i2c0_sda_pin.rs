@@ -7,6 +7,7 @@ use serde::{Deserialize, Serialize};
 #[cfg_attr(feature = "_defmt", derive(defmt::Format))]
 #[derive(Serialize, Deserialize, Display, Clone, Copy, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
 pub enum I2c0SdaPin {
+    /// Pin 0
     Pin0,
     Pin4,
     Pin8,

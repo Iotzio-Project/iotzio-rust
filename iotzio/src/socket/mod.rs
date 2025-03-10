@@ -1,7 +1,7 @@
 #![forbid(unsafe_code)]
 
 cfg_if::cfg_if! {
-    if #[cfg(feature = "_std")] {
+    if #[cfg(feature = "_host")] {
         mod socket;
         mod socket_service;
         mod runtime_identifier;

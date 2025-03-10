@@ -1,7 +1,7 @@
 use serde::{Deserialize, Serialize};
 
 cfg_if::cfg_if! {
-    if #[cfg(feature = "_std")] {
+    if #[cfg(feature = "_host")] {
         use std::time::Duration;
     }
     else {

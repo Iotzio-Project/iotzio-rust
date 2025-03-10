@@ -6,32 +6,59 @@ use serde::{Deserialize, Serialize};
 #[cfg_attr(feature = "_defmt", derive(defmt::Format))]
 #[derive(Serialize, Deserialize, Display, Clone, Copy, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
 pub enum GpioPin {
+    /// Pin 0
     Pin0,
+    /// Pin 1
     Pin1,
+    /// Pin 2
     Pin2,
+    /// Pin 3
     Pin3,
+    /// Pin 4
     Pin4,
+    /// Pin 5
     Pin5,
+    /// Pin 6
     Pin6,
+    /// Pin 7
     Pin7,
+    /// Pin 8
     Pin8,
+    /// Pin 9
     Pin9,
+    /// Pin 10
     Pin10,
+    /// Pin 11
     Pin11,
+    /// Pin 12
     Pin12,
+    /// Pin 13
     Pin13,
+    /// Pin 14
     Pin14,
+    /// Pin 15
     Pin15,
+    /// Pin 16
     Pin16,
+    /// Pin 17
     Pin17,
+    /// Pin 18
     Pin18,
+    /// Pin 19
     Pin19,
+    /// Pin 20
     Pin20,
+    /// Pin 21
     Pin21,
+    /// Pin 22
     Pin22,
+    /// Pin 25
     Pin25,
+    /// Pin 26
     Pin26,
+    /// Pin 27
     Pin27,
+    /// Pin 28
     Pin28,
 }
 

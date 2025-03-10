@@ -3,6 +3,7 @@ use crate::iotzio::iotzio_service;
 use crate::InitializationError;
 use std::marker::PhantomData;
 
+/// The iotzio manager is the entry point into the iotzio API. It lists connected Iotzio boards.
 #[cfg_attr(any(feature = "_ffi-blocking", feature = "_ffi-async"), derive(uniffi::Object))]
 #[derive(Debug, Default)]
 pub struct IotzioManager {
@@ -11,6 +12,7 @@ pub struct IotzioManager {
 
 #[cfg_attr(any(feature = "_ffi-blocking", feature = "_ffi-async"), uniffi::export)]
 impl IotzioManager {
+    /// Create a new iotzio manager instance.
     #[inline]
     #[cfg_attr(any(feature = "_ffi-blocking", feature = "_ffi-async"), uniffi::constructor)]
     pub fn new() -> IotzioManager {
@@ -22,6 +24,7 @@ impl IotzioManager {
 
 #[cfg(all(not(target_family = "wasm"), not(feature = "_ffi-blocking")))]
 impl IotzioManager {
+    /// Lists all currently connected Iotzio boards.
     #[inline]
     pub fn list_connected_boards(&self) -> Result<Vec<IotzioInfo>, InitializationError> {
         async_std::task::block_on(iotzio_service::list_connected_boards())
@@ -31,6 +34,7 @@ impl IotzioManager {
 #[cfg(all(not(target_family = "wasm"), feature = "_ffi-blocking"))]
 #[uniffi::export]
 impl IotzioManager {
+    /// Lists all currently connected Iotzio boards.
     #[inline]
     pub fn list_connected_boards(&self) -> Result<Vec<std::sync::Arc<IotzioInfo>>, InitializationError> {
         async_std::task::block_on(iotzio_service::list_connected_boards())
@@ -40,6 +44,7 @@ impl IotzioManager {
 
 #[cfg(not(feature = "_ffi-async"))]
 impl IotzioManager {
+    /// Lists all currently connected Iotzio boards.
     #[inline]
     pub async fn list_connected_boards_async(&self) -> Result<Vec<IotzioInfo>, InitializationError> {
         iotzio_service::list_connected_boards().await
@@ -49,6 +54,7 @@ impl IotzioManager {
 #[cfg(feature = "_ffi-async")]
 #[uniffi::export]
 impl IotzioManager {
+    /// Lists all currently connected Iotzio boards.
     #[inline]
     pub async fn list_connected_boards_async(&self) -> Result<Vec<std::sync::Arc<IotzioInfo>>, InitializationError> {
         iotzio_service::list_connected_boards()

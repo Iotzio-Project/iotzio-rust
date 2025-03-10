@@ -10,7 +10,7 @@ mod response;
 mod version;
 
 cfg_if::cfg_if! {
-    if #[cfg(feature = "_std")] {
+    if #[cfg(feature = "_host")] {
         pub(crate) use self::command::*;
         pub(crate) use self::device_report::*;
         pub(crate) use self::host_report::*;
