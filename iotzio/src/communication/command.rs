@@ -1,6 +1,6 @@
 use crate::modules;
 use crate::peripherals::gpio::{Drive, GpioPin, Level, Pull, SlewRate};
-use crate::peripherals::i2c::I2cIdentifier;
+use crate::peripherals::i2c::I2cBusNumber;
 use crate::peripherals::BusBuffer;
 use serde::{Deserialize, Serialize};
 
@@ -56,46 +56,46 @@ pub enum Command {
         config: modules::i2c_bus::I2cConfig,
     },
     I2c_Drop {
-        identifier: I2cIdentifier,
+        identifier: I2cBusNumber,
     },
     I2c_ReadSingle {
-        identifier: I2cIdentifier,
+        identifier: I2cBusNumber,
         address: u16,
         buffer_size: u16,
     },
     I2c_StartReadChunked {
-        identifier: I2cIdentifier,
+        identifier: I2cBusNumber,
         address: u16,
         chunks_count: u32,
     },
     I2c_ReadChunk {
-        identifier: I2cIdentifier,
+        identifier: I2cBusNumber,
         buffer_size: u16,
         chunk_index: u32,
     },
     I2c_StopReadChunked {
-        identifier: I2cIdentifier,
+        identifier: I2cBusNumber,
     },
     I2c_WriteSingle {
-        identifier: I2cIdentifier,
+        identifier: I2cBusNumber,
         address: u16,
         bytes: BusBuffer,
     },
     I2c_StartWriteChunked {
-        identifier: I2cIdentifier,
+        identifier: I2cBusNumber,
         address: u16,
         chunks_count: u32,
     },
     I2c_WriteChunk {
-        identifier: I2cIdentifier,
+        identifier: I2cBusNumber,
         bytes: BusBuffer,
         chunk_index: u32,
     },
     I2c_StopWriteChunked {
-        identifier: I2cIdentifier,
+        identifier: I2cBusNumber,
     },
     I2c_WriteReadSingle {
-        identifier: I2cIdentifier,
+        identifier: I2cBusNumber,
         address: u16,
         bytes: BusBuffer,
         buffer_size: u16,

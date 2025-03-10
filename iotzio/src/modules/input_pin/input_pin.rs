@@ -5,6 +5,7 @@ use async_std::task::block_on;
 use std::sync::Arc;
 use std::time::Duration;
 
+/// Represents an input pin on the Iotzio device.
 #[cfg_attr(any(feature = "_ffi-blocking", feature = "_ffi-async"), derive(uniffi::Object))]
 #[derive(Debug)]
 pub struct InputPin {

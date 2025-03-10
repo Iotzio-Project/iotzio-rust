@@ -4,6 +4,7 @@ use crate::socket::Socket;
 use async_std::task::block_on;
 use std::sync::{Arc, Mutex};
 
+/// Represents an output pin on the Iotzio device.
 #[cfg_attr(any(feature = "_ffi-blocking", feature = "_ffi-async"), derive(uniffi::Object))]
 #[derive(Debug)]
 pub struct OutputPin {

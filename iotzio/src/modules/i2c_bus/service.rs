@@ -1,6 +1,6 @@
 use crate::communication::{Command, FatalError, ProtocolError, Response};
 use crate::modules::i2c_bus::{I2cBus, I2cBusModuleError, I2cConfig};
-use crate::peripherals::i2c::I2cIdentifier;
+use crate::peripherals::i2c::I2cBusNumber;
 use crate::peripherals::{BusBuffer, BUS_BUFFER_SIZE};
 use crate::socket::Socket;
 use async_std::sync::Mutex;
@@ -9,8 +9,8 @@ use std::sync::Arc;
 
 pub async fn new(socket: &Arc<Socket>, config: I2cConfig) -> Result<I2cBus, I2cBusModuleError> {
     let identifier = match &config {
-        I2cConfig::I2c0 { .. } => I2cIdentifier::I2c0,
-        I2cConfig::I2c1 { .. } => I2cIdentifier::I2c1,
+        I2cConfig::I2c0 { .. } => I2cBusNumber::I2c0,
+        I2cConfig::I2c1 { .. } => I2cBusNumber::I2c1,
     };
 
     let command = Command::I2c_New { config };
@@ -27,11 +27,11 @@ pub async fn new(socket: &Arc<Socket>, config: I2cConfig) -> Result<I2cBus, I2cB
     Ok(I2cBus {
         socket: socket.clone(),
         mutex: Mutex::new(()),
-        identifier,
+        bus_number: identifier,
     })
 }
 
-pub async fn drop(socket: &Socket, identifier: I2cIdentifier) -> Result<(), I2cBusModuleError> {
+pub async fn drop(socket: &Socket, identifier: I2cBusNumber) -> Result<(), I2cBusModuleError> {
     let command = Command::I2c_Drop { identifier };
 
     let response = socket.send(command).await??;
@@ -48,7 +48,7 @@ pub async fn drop(socket: &Socket, identifier: I2cIdentifier) -> Result<(), I2cB
 pub async fn read(
     socket: &Arc<Socket>,
     mutex: &Mutex<()>,
-    identifier: I2cIdentifier,
+    identifier: I2cBusNumber,
     address: u16,
     buffer: &mut [u8],
 ) -> Result<(), I2cBusModuleError> {
@@ -61,7 +61,7 @@ pub async fn read(
 pub async fn write(
     socket: &Arc<Socket>,
     mutex: &Mutex<()>,
-    identifier: I2cIdentifier,
+    identifier: I2cBusNumber,
     address: u16,
     bytes: &[u8],
 ) -> Result<(), I2cBusModuleError> {
@@ -74,7 +74,7 @@ pub async fn write(
 pub async fn write_read(
     socket: &Arc<Socket>,
     mutex: &Mutex<()>,
-    identifier: I2cIdentifier,
+    identifier: I2cBusNumber,
     address: u16,
     bytes: &[u8],
     buffer: &mut [u8],
@@ -89,7 +89,7 @@ pub async fn write_read(
 pub async fn transaction(
     socket: &Arc<Socket>,
     mutex: &Mutex<()>,
-    identifier: I2cIdentifier,
+    identifier: I2cBusNumber,
     address: u16,
     operations: &mut [embedded_hal::i2c::Operation<'_>],
 ) -> Result<(), I2cBusModuleError> {
@@ -111,7 +111,7 @@ pub async fn transaction(
 
 async fn read_inner(
     socket: &Arc<Socket>,
-    identifier: I2cIdentifier,
+    identifier: I2cBusNumber,
     address: u16,
     buffer: &mut [u8],
 ) -> Result<(), I2cBusModuleError> {
@@ -188,7 +188,7 @@ async fn read_inner(
 
 async fn write_inner(
     socket: &Arc<Socket>,
-    identifier: I2cIdentifier,
+    identifier: I2cBusNumber,
     address: u16,
     bytes: &[u8],
 ) -> Result<(), I2cBusModuleError> {
@@ -257,7 +257,7 @@ async fn write_inner(
 
 async fn write_read_inner(
     socket: &Arc<Socket>,
-    identifier: I2cIdentifier,
+    identifier: I2cBusNumber,
     address: u16,
     bytes: &[u8],
     buffer: &mut [u8],
@@ -301,11 +301,11 @@ enum ChunkedModeType {
 struct ChunkedAutoCloseable {
     socket: Option<Arc<Socket>>,
     mode: ChunkedModeType,
-    bus: I2cIdentifier,
+    bus: I2cBusNumber,
 }
 
 impl ChunkedAutoCloseable {
-    pub fn new(socket: &Arc<Socket>, identifier: I2cIdentifier, mode: ChunkedModeType) -> ChunkedAutoCloseable {
+    pub fn new(socket: &Arc<Socket>, identifier: I2cBusNumber, mode: ChunkedModeType) -> ChunkedAutoCloseable {
         ChunkedAutoCloseable {
             socket: Some(socket.clone()),
             mode,
@@ -338,7 +338,7 @@ impl Drop for ChunkedAutoCloseable {
 async fn drop_async_inner(
     socket: Arc<Socket>,
     mode: ChunkedModeType,
-    identifier: I2cIdentifier,
+    identifier: I2cBusNumber,
 ) -> Result<(), I2cBusModuleError> {
     match mode {
         ChunkedModeType::Write => {

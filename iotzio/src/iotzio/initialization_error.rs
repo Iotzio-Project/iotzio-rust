@@ -18,7 +18,7 @@ pub enum InitializationError {
     #[error("Mismatching Iotzio protocol version: Library version is {driver}, but Iotzio board has version {board}.")]
     MismatchingProtocolVersion { driver: u16, board: u16 },
 
-    /// A fatal error occurred.
+    /// Fatal error.
     #[error("{error}")]
     FatalErrorWrapper { error: FatalError },
 }

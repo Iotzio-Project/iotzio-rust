@@ -3,13 +3,17 @@ use crate::modules::ModuleError;
 use serde::{Deserialize, Serialize};
 use thiserror_no_std::Error;
 
+/// Input pin module error.
 #[non_exhaustive]
 #[cfg_attr(feature = "_defmt", derive(defmt::Format))]
 #[cfg_attr(any(feature = "_ffi-blocking", feature = "_ffi-async"), derive(uniffi::Error))]
 #[derive(Serialize, Deserialize, Error, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
 pub enum InputPinModuleError {
+    /// Module error.
     #[error("{error}")]
     ModuleErrorWrapper { error: ModuleError },
+
+    /// Fatal error.
     #[error("{error}")]
     FatalErrorWrapper { error: FatalError },
 }
