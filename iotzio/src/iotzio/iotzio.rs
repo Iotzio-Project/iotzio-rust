@@ -43,7 +43,8 @@ impl Iotzio {
 #[cfg(not(target_family = "wasm"))]
 #[cfg_attr(feature = "_ffi-blocking", uniffi::export)]
 impl Iotzio {
-    /// Set up a new input pin with the given pull setting.
+    /// Set up a new input pin with the given pull setting. Hysteresis enabled ensures reliable signal interpretation, even with noisy or slowly changing input signals.
+    /// During the existence of the returned module instance, the pin cannot be used for other modules.
     #[inline]
     pub fn setup_input_pin(
         &self,
@@ -59,6 +60,8 @@ impl Iotzio {
         ))
     }
 
+    /// Set up a new output pin with given initial level, drive strength and slew rate.
+    /// During the existence of the returned module instance, the pin cannot be used for other modules.
     #[inline]
     pub fn setup_output_pin(
         &self,
@@ -76,6 +79,9 @@ impl Iotzio {
         ))
     }
 
+    /// Set up a new I2C bus using the given I2C configuration.
+    /// With this module instance you can communicate directly to bus participants.
+    /// Use this method also if you want to create specialized I2C bus dependent modules.
     #[inline]
     pub fn setup_i2c_bus(
         &self,
@@ -87,6 +93,8 @@ impl Iotzio {
 
 #[cfg_attr(feature = "_ffi-async", uniffi::export)]
 impl Iotzio {
+    /// Set up a new input pin with the given pull setting. Hysteresis enabled ensures reliable signal interpretation, even with noisy or slowly changing input signals.
+    /// During the existence of the returned module instance, the pin cannot be used for other modules.
     #[inline]
     pub async fn setup_input_pin_async(
         &self,
@@ -97,6 +105,8 @@ impl Iotzio {
         modules::input_pin::InputPin::new(&self.socket, pin, pull_setting, hysteresis).await
     }
 
+    /// Set up a new output pin with given initial level, drive strength and slew rate.
+    /// During the existence of the returned module instance, the pin cannot be used for other modules.
     #[inline]
     pub async fn setup_output_pin_async(
         &self,
@@ -108,6 +118,9 @@ impl Iotzio {
         modules::output_pin::OutputPin::new(&self.socket, pin, initial_level, drive_strength, slew_rate).await
     }
 
+    /// Set up a new I2C bus using the given I2C configuration.
+    /// With this module instance you can communicate directly to bus participants.
+    /// Use this method also if you want to create specialized I2C bus dependent modules.
     #[inline]
     pub async fn setup_i2c_bus_async(
         &self,

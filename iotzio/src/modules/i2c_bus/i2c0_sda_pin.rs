@@ -9,10 +9,15 @@ use serde::{Deserialize, Serialize};
 pub enum I2c0SdaPin {
     /// Pin 0
     Pin0,
+    /// Pin 4
     Pin4,
+    /// Pin 8
     Pin8,
+    /// Pin 12
     Pin12,
+    /// Pin 16
     Pin16,
+    /// Pin 20
     Pin20,
 }
 
