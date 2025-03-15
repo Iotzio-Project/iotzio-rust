@@ -11,5 +11,9 @@ pub enum Pull {
     /// Internal pull-up resistor.
     Up,
     /// Internal pull-down resistor.
+    ///
+    /// Don't expect the internal pulldown to work when working with weak input signals. Use an
+    /// external pulldown 8.2k or lower if you need a reliable pulldown, or make sure your input
+    /// signal can sink enough current to override the leakage current.
     Down,
 }
