@@ -1,5 +1,23 @@
 #![forbid(unsafe_code)]
 
+#[allow(unused)]
+pub const USB_VENDOR_ID: u16 = 0x2E8A;
+
+#[allow(unused)]
+pub const USB_PRODUCT_ID: u16 = 0x000F;
+
+#[allow(unused)]
+pub const USB_USAGE_PAGE: u16 = 0xFF00;
+
+#[allow(unused)]
+pub const USB_USAGE_ID: u16 = 0x0001;
+
+#[allow(unused)]
+pub const USB_MANUFACTURER_NAME: &str = "Iotzio Project";
+
+#[allow(unused)]
+pub const USB_PRODUCT_NAME_PREFIX: &str = "Iotzio ";
+
 cfg_if::cfg_if! {
     if #[cfg(feature = "_host")] {
         pub(crate) mod iotzio_service;
@@ -15,29 +33,6 @@ cfg_if::cfg_if! {
 
         mod iotzio_info;
         pub use self::iotzio_info::*;
-
-        pub(crate) const USB_VENDOR_ID: u16 = 0x2E8A;
-
-        pub(crate) const USB_PRODUCT_ID: u16 = 0x000F;
-
-        #[allow(unused)]
-        pub(crate) const USB_USAGE_PAGE: u16 = 0xFF00;
-
-        #[allow(unused)]
-        pub(crate) const USB_USAGE_ID: u16 = 0x0001;
-
-        #[allow(unused)]
-        pub(crate) const USB_MANUFACTURER_NAME: &str = "Iotzio Project";
-
-        #[allow(unused)]
-        pub(crate) const USB_PRODUCT_NAME_PREFIX: &str = "Iotzio ";
-    }
-    else {
-        pub const USB_VENDOR_ID: u16 = 0x2E8A;
-
-        pub const USB_PRODUCT_ID: u16 = 0x000F;
-
-        pub const USB_MANUFACTURER_NAME: &str = "Iotzio Project";
     }
 }
 
