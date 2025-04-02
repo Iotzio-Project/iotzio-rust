@@ -10,7 +10,7 @@ cfg_if::cfg_if! {
     else {
         use core::fmt;
 
-        pub type SerialNumberString = heapless::String<30>;
+        pub type SerialNumberString = heapless::String<16>;
     }
 }
 
