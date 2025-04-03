@@ -14,7 +14,7 @@ pub async fn list_connected_boards() -> Result<Vec<IotzioInfo>, InitializationEr
 
 fn parse_version(product_name: &str) -> Option<Version> {
     if product_name.starts_with(USB_PRODUCT_NAME_PREFIX) {
-        let version_part = &product_name[7..];
+        let version_part = &product_name[USB_PRODUCT_NAME_PREFIX.len()..];
 
         let parts: Vec<&str> = version_part.split('.').collect();
 
