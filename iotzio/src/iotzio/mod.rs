@@ -13,7 +13,7 @@ pub const USB_USAGE_PAGE: u16 = 0xFF00;
 pub const USB_USAGE_ID: u16 = 0x0001;
 
 #[allow(unused)]
-pub const USB_MANUFACTURER_NAME: &str = "Iotzio Project";
+pub const USB_MANUFACTURER_NAME: &str = "Porsch Precision";
 
 #[allow(unused)]
 pub const USB_PRODUCT_NAME_PREFIX: &str = "Iotzio ";
